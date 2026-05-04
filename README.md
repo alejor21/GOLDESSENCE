@@ -1,73 +1,58 @@
-# React + TypeScript + Vite
+# GOLDESCENCE — Alta Perfumería 🏺
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![GOLDESCENCE Hero](./docs/screenshots/hero.png)
 
-Currently, two official plugins are available:
+**GOLDESCENCE** es una plataforma de comercio electrónico de lujo dedicada a la alta perfumería de nicho, diseñador y árabe. Ubicados en Nariño, Colombia, ofrecemos más de 200 referencias exclusivas en formatos originales y decants.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Características Principales
 
-## React Compiler
+- **Diseño Editorial de Lujo**: Una interfaz inmersiva con estética "dark mode" y acentos dorados que evocan exclusividad.
+- **Experiencia Interactiva**: Efectos de parallax dinámicos, animaciones fluidas y transiciones suaves.
+- **Catálogo Digital**: Acceso directo al catálogo completo de fragancias en formato PDF.
+- **Diseño Responsivo**: Totalmente optimizado para dispositivos móviles y escritorio.
+- **Secciones Destacadas**:
+    - **La Reserva**: Selección exclusiva de perfumes de nicho.
+    - **Colecciones**: Exploración por tipos de fragancias.
+    - **Filosofía**: Historia y valores de la marca.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📸 Capturas de Pantalla
 
-## Expanding the ESLint configuration
+### Colecciones Exclusivas
+![Colecciones](./docs/screenshots/collections.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Catálogo y Reservas
+![Catálogo](./docs/screenshots/catalog.png)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Tecnologías Utilizadas
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **Core**: React 18 con TypeScript
+- **Bundler**: Vite
+- **Estilos**: Vanilla CSS con variables modernas
+- **Framework de UI**: Componentes personalizados para máxima flexibilidad y rendimiento.
+- **Animaciones**: GSAP / CSS Transitions
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🚀 Instalación y Desarrollo
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/alejor21/GOLDESSENCE.git
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+3. Inicia el servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
+
+4. Construye para producción:
+   ```bash
+   npm run build
+   ```
+
+---
+
+*Desarrollado con pasión para GoldEssence.*
