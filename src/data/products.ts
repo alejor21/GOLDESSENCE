@@ -53,3 +53,4 @@ export const products: Product[] = [
   p('Ahli','Corvus','nicho',[{size:'60ml',price:'$360.000'},{size:'10ml',price:'$50.000'},{size:'5ml',price:'$35.000'}]),
   p('Ilmin','IL Bordeaux','nicho',[{size:'30ml',price:'$430.000'}]),
 ];
+ 
