@@ -1,27 +1,242 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@100;200;300;400;500;600&display=swap');
+/* FIXED: Complete design system rewrite — local fonts, new teal/copper palette */
 
 @import "tailwindcss";
 
-@theme {
-  --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-sans: 'Outfit', -apple-system, sans-serif;
+/* ── LOCAL FONT FACES ─────────────────────────────────────────────────────── */
+/* FIXED: Soria — display/heading font (boldest available) */
+@font-face {
+  font-family: 'Soria';
+  src: url('/assets/fonts/soria/soria-font.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
+/* FIXED: Montserrat — body font family */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/assets/fonts/static/Montserrat-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/assets/fonts/static/Montserrat-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/assets/fonts/static/Montserrat-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/assets/fonts/static/Montserrat-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/assets/fonts/static/Montserrat-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/assets/fonts/static/Montserrat-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/assets/fonts/static/Montserrat-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── TAILWIND THEME ───────────────────────────────────────────────────────── */
+@theme {
+  --font-display: 'Soria', Georgia, serif;
+  --font-body: 'Montserrat', -apple-system, sans-serif;
+}
+
+/* ── CSS VARIABLES — MASTER PALETTE ───────────────────────────────────────── */
+/* FIXED: Deep teal/copper luxury palette from reference */
+:root {
+  --color-bg:         #0c1117;
+  --color-surface:    #1e2d35;
+  --color-mid:        #A79E9C;
+  --color-light:      #D3C3B9;
+  --color-accent:     #B58863;
+  --color-black:      #0d0d0d;
+  --color-text:       #ede5dc;
+  --color-text-muted: #8a7f76;
+  --color-gold-line:  rgba(181,136,99,0.3);
+
+  --font-display: 'Soria', Georgia, serif;
+  --font-body: 'Montserrat', -apple-system, sans-serif;
+}
+
+/* ── GLOBAL RESET ─────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
 
 body {
-  background: #050505;
-  color: #FAF8F5;
-  font-family: 'Outfit', -apple-system, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   position: relative;
 }
 
-/* ── Grain Texture Overlay ── */
+/* ── Animated wavy SVG golden lines overlay ── */
+/* Uses an inline SVG with organic bezier paths that drift slowly */
+.golden-lines-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.golden-lines-canvas svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+/* Each wavy path drifts independently */
+.gline-1 {
+  animation: waveDrift1 22s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+.gline-2 {
+  animation: waveDrift2 28s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+.gline-3 {
+  animation: waveDrift3 35s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+.gline-4 {
+  animation: waveDrift4 19s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+.gline-5 {
+  animation: waveDrift5 42s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+@keyframes waveDrift1 {
+  0%   { d: path('M-100,180 C120,90 280,310 480,200 C680,90 820,350 1000,220 C1180,90 1380,280 1600,180'); opacity: 0.09; }
+  33%  { d: path('M-100,240 C150,130 320,370 500,260 C700,150 880,400 1100,270 C1280,140 1440,320 1600,240'); opacity: 0.15; }
+  66%  { d: path('M-100,150 C100,60 260,280 460,170 C640,60 800,310 1000,190 C1200,70 1380,260 1600,160'); opacity: 0.08; }
+  100% { d: path('M-100,300 C180,190 360,430 560,310 C760,190 940,460 1140,320 C1340,190 1480,370 1600,290'); opacity: 0.12; }
+}
+@keyframes waveDrift2 {
+  0%   { d: path('M-100,500 C200,380 400,620 650,490 C900,360 1050,580 1300,450 C1480,350 1580,520 1700,480'); opacity: 0.06; }
+  50%  { d: path('M-100,560 C240,430 460,680 720,540 C960,410 1120,650 1380,510 C1520,410 1620,580 1700,540'); opacity: 0.13; }
+  100% { d: path('M-100,430 C160,310 360,550 600,420 C840,290 1000,510 1260,380 C1440,280 1560,450 1700,410'); opacity: 0.07; }
+}
+@keyframes waveDrift3 {
+  0%   { d: path('M-80,750 C150,630 320,870 580,720 C840,570 1020,810 1280,660 C1460,550 1580,730 1720,680'); opacity: 0.05; }
+  40%  { d: path('M-80,820 C190,690 380,940 650,790 C920,640 1110,890 1380,730 C1560,620 1660,800 1720,750'); opacity: 0.11; }
+  80%  { d: path('M-80,680 C120,560 290,800 550,640 C800,490 980,730 1220,580 C1400,470 1520,660 1720,610'); opacity: 0.06; }
+  100% { d: path('M-80,900 C200,770 400,1020 680,860 C960,710 1140,960 1420,800 C1600,690 1680,870 1720,830'); opacity: 0.09; }
+}
+@keyframes waveDrift4 {
+  0%   { d: path('M-60,1050 C180,920 380,1160 660,1000 C940,840 1120,1090 1400,930 C1560,830 1660,1010 1740,960'); opacity: 0.04; }
+  60%  { d: path('M-60,980 C140,860 340,1090 600,940 C860,790 1060,1020 1320,870 C1500,770 1620,940 1740,890'); opacity: 0.10; }
+  100% { d: path('M-60,1130 C220,1000 440,1250 720,1080 C1000,920 1180,1170 1460,1010 C1640,900 1720,1080 1740,1040'); opacity: 0.06; }
+}
+@keyframes waveDrift5 {
+  0%   { d: path('M-120,1350 C160,1210 380,1460 680,1280 C980,1110 1200,1390 1480,1220 C1640,1110 1720,1300 1820,1250'); opacity: 0.03; }
+  50%  { d: path('M-120,1280 C120,1140 340,1380 630,1210 C920,1040 1140,1310 1420,1150 C1580,1040 1680,1220 1820,1180'); opacity: 0.08; }
+  100% { d: path('M-120,1430 C200,1290 430,1550 740,1360 C1040,1180 1260,1470 1540,1290 C1700,1180 1760,1380 1820,1330'); opacity: 0.05; }
+}
+
+/* Warm radial glow spots that drift */
+.glow-spot {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+.glow-spot-1 {
+  width: 600px; height: 500px;
+  top: -100px; right: -100px;
+  background: radial-gradient(circle, rgba(181,136,99,0.12) 0%, transparent 70%);
+  animation: glowDrift1 18s ease-in-out infinite alternate;
+}
+.glow-spot-2 {
+  width: 500px; height: 600px;
+  bottom: 10%; left: -80px;
+  background: radial-gradient(circle, rgba(181,136,99,0.09) 0%, transparent 70%);
+  animation: glowDrift2 24s ease-in-out infinite alternate;
+}
+.glow-spot-3 {
+  width: 480px; height: 480px;
+  top: 40%; left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(181,136,99,0.07) 0%, transparent 70%);
+  animation: glowDrift3 31s ease-in-out infinite alternate;
+}
+/* Additional glow spots for richer depth */
+.glow-spot-4 {
+  width: 700px; height: 500px;
+  top: 55%; right: -120px;
+  background: radial-gradient(circle, rgba(181,136,99,0.08) 0%, rgba(30,80,90,0.04) 45%, transparent 70%);
+  animation: glowDrift4 26s ease-in-out infinite alternate;
+}
+.glow-spot-5 {
+  width: 550px; height: 650px;
+  bottom: 5%; left: 25%;
+  background: radial-gradient(circle, rgba(20,80,95,0.07) 0%, rgba(181,136,99,0.04) 50%, transparent 70%);
+  animation: glowDrift5 37s ease-in-out infinite alternate;
+}
+@keyframes glowDrift1 {
+  0%   { transform: translate(0, 0); opacity: 0.85; }
+  50%  { transform: translate(-60px, 80px); opacity: 1; }
+  100% { transform: translate(40px, -50px); opacity: 0.65; }
+}
+@keyframes glowDrift2 {
+  0%   { transform: translate(0, 0); opacity: 0.75; }
+  50%  { transform: translate(80px, -60px); opacity: 1; }
+  100% { transform: translate(-40px, 40px); opacity: 0.55; }
+}
+@keyframes glowDrift3 {
+  0%   { transform: translateX(-50%) translateY(0); opacity: 0.65; }
+  50%  { transform: translateX(-60%) translateY(-40px); opacity: 0.95; }
+  100% { transform: translateX(-40%) translateY(30px); opacity: 0.45; }
+}
+@keyframes glowDrift4 {
+  0%   { transform: translate(0, 0); opacity: 0.7; }
+  40%  { transform: translate(-80px, -60px); opacity: 1; }
+  100% { transform: translate(50px, 70px); opacity: 0.5; }
+}
+@keyframes glowDrift5 {
+  0%   { transform: translate(0, 0); opacity: 0.6; }
+  50%  { transform: translate(60px, -80px); opacity: 0.9; }
+  100% { transform: translate(-50px, 50px); opacity: 0.4; }
+}
+
+
+/* ── GRAIN TEXTURE OVERLAY ────────────────────────────────────────────────── */
 body::before {
   content: "";
   position: fixed;
@@ -36,55 +251,309 @@ body::before {
   mix-blend-mode: overlay;
 }
 
-/* ── Glass card (dark) ── */
-.glass-dark {
-  background: rgba(10, 10, 10, 0.88);
-  backdrop-filter: blur(16px) saturate(140%);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  border: 1px solid rgba(201,168,76,0.25);
+/* ── SUBTLE DOT GRID — copper-tinted, very faint ──────────────────────────── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(181,136,99,0.055) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
 }
 
-/* ── Liquid Glass (Slider) ── */
-.liquid-glass {
-  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 100%);
-  backdrop-filter: blur(30px) saturate(200%);
-  -webkit-backdrop-filter: blur(30px) saturate(200%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-top: 1px solid rgba(255, 255, 255, 0.4);
-  border-left: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 
-    0 30px 60px -10px rgba(0, 0, 0, 0.8), 
-    inset 0 0 30px rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
-}
-
-/* ── Marquee ── */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 30s linear infinite;
-}
-.marquee-track:hover { animation-play-state: paused; }
-
-/* ── Scrollbar ── */
+/* ── SCROLLBAR ────────────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #050505; }
-::-webkit-scrollbar-thumb { background: #C9A84C; border-radius: 0px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 4px; }
 
-/* ── Gold divider ── */
+/* ── GOLD DIVIDER ─────────────────────────────────────────────────────────── */
 .gold-divider {
   display: block;
   width: 48px;
   height: 1.5px;
-  background: #C9A84C;
+  background: var(--color-accent);
   margin-bottom: 1rem;
 }
 
-/* Canvas scroll animation */
+/* ── FIXED: positioning — Hero section — fondo.png marble background ──────── */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background-image: url('/assets/images/fondo.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* Dark overlay — lighter in the center so the bottle is visible */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 16, 22, 0.5) 0%,
+    rgba(10, 16, 22, 0.15) 35%,
+    rgba(10, 16, 22, 0.15) 55%,
+    rgba(10, 16, 22, 0.7) 85%,
+    rgba(10, 16, 22, 0.95) 100%
+  );
+  z-index: 1;
+}
+
+/* FIXED: positioning — All hero children above overlay by default */
+.hero-section > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Subtle float drift for the hero background text ── */
+@keyframes heroBgFloat {
+  0%   { transform: translate(-50%, -50%) translate(0px, 0px)      scale(1); }
+  25%  { transform: translate(-50%, -50%) translate(3px, -5px)     scale(1.007); }
+  50%  { transform: translate(-50%, -50%) translate(-3px, -8px)    scale(1.01); }
+  75%  { transform: translate(-50%, -50%) translate(-4px, -3px)    scale(1.005); }
+  100% { transform: translate(-50%, -50%) translate(0px, 0px)      scale(1); }
+}
+
+/* ── Giant GOLDESCENCE text — dead center, behind bottles ── */
+.hero-bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  font-size: clamp(48px, 10vw, 160px);
+  color: #F5F0E8;
+  font-family: 'Montserrat', -apple-system, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 3;
+  user-select: none;
+  line-height: 1;
+  animation: heroBgFloat 14s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ── FIXED: positioning — Brand logo + name top center ───────────────────── */
+.hero-brand-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 7rem;
+  z-index: 6;
+}
+
+.hero-brand-name {
+  margin-top: 1rem;
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* ── Carousel wrapper — centered, ON TOP of the text ── */
+.carousel-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ── FIXED: positioning — Bottle float animation ─────────────────────────── */
+@keyframes floatBottle {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-16px); }
+}
+
+.bottle-img {
+  max-height: clamp(440px, 78vh, 850px);
+  width: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 60px rgba(0,0,0,0.7))
+         drop-shadow(0 0 120px rgba(10,16,22,0.6))
+         drop-shadow(0 8px 30px rgba(0,0,0,0.5));
+  animation: floatBottle 5s ease-in-out infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* ── Bottle label — below the bottle, above the CTA ── */
+.bottle-label {
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.bottle-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2.5vw, 28px);
+  letter-spacing: 0.2em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+
+.bottle-descriptor {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ── CTA button — centered gold button at the bottom ── */
+.hero-cta {
+  position: absolute;
+  bottom: 10%;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-cta-btn {
+  display: inline-block;
+  background: var(--color-accent);
+  color: var(--color-black);
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  font-size: 11px;
+  text-transform: uppercase;
+  padding: 16px 44px;
+  border: none;
+  border-radius: 0px;
+  text-decoration: none;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  white-space: nowrap;
+}
+
+.hero-cta-btn:hover {
+  background: var(--color-light);
+  color: var(--color-black);
+  letter-spacing: 0.28em;
+}
+
+.hero-cta-btn:active {
+  transform: scale(0.97);
+}
+
+/* ── Line indicators — minimal at very bottom ── */
+.carousel-indicators {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  z-index: 6;
+}
+
+.carousel-indicator {
+  height: 2px;
+  border-radius: 1px;
+  border: none;
+  cursor: pointer;
+  transition: width 0.4s cubic-bezier(0.22,1,0.36,1),
+              background-color 0.4s ease;
+  padding: 0;
+}
+
+.carousel-indicator[data-active="true"] {
+  width: 28px;
+  background: var(--color-accent);
+}
+
+.carousel-indicator[data-active="false"] {
+  width: 14px;
+  background: var(--color-text-muted);
+  opacity: 0.35;
+}
+
+/* ── Mobile breakpoints ── */
+@media (max-width: 768px) {
+  .hero-section {
+    height: 100svh;
+  }
+  /* Botella más grande en móvil */
+  .bottle-img {
+    max-height: clamp(300px, 54vh, 440px);
+  }
+  /* 11vw hace que "GOLDESCENCE" (11 chars) quepa sin recortarse */
+  .hero-bg-text {
+    font-size: 11vw;
+    letter-spacing: 0.04em;
+  }
+  .hero-brand-top {
+    padding-top: 5rem;
+  }
+  .hero-cta {
+    bottom: 8%;
+  }
+  .hero-cta-btn {
+    padding: 14px 36px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+  }
+  .carousel-indicators {
+    bottom: 3%;
+  }
+  .bottle-label {
+    bottom: 16%;
+  }
+}
+
+/* ── BOTTLE GLOW (pulsing ellipse under bottle) ───────────────────────────── */
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.5; transform: scaleX(1); }
+  50%      { opacity: 0.2; transform: scaleX(0.7); }
+}
+
+.bottle-glow {
+  width: 160px;
+  height: 20px;
+  background: radial-gradient(ellipse, rgba(181,136,99,0.5) 0%, transparent 70%);
+  margin: -5px auto 0;
+  animation: glowPulse 5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* ── GLASS CARD ───────────────────────────────────────────────────────────── */
+.glass-dark {
+  background: rgba(26, 35, 41, 0.88);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid var(--color-gold-line);
+}
+
+/* ── CANVAS (if used) ─────────────────────────────────────────────────────── */
 canvas {
   touch-action: none;
   display: block;
@@ -93,3 +562,199 @@ canvas {
   width: 100% !important;
   height: 100% !important;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ANIMATION SYSTEM
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Scroll reveal: elements animate in on viewport entry ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1),
+              transform 0.9s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1),
+              transform 0.9s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1),
+              transform 0.9s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Stagger delays for children */
+.reveal:nth-child(1), .reveal-left:nth-child(1) { transition-delay: 0.0s; }
+.reveal:nth-child(2), .reveal-left:nth-child(2) { transition-delay: 0.1s; }
+.reveal:nth-child(3), .reveal-left:nth-child(3) { transition-delay: 0.2s; }
+.reveal:nth-child(4), .reveal-left:nth-child(4) { transition-delay: 0.3s; }
+.reveal:nth-child(5), .reveal-left:nth-child(5) { transition-delay: 0.4s; }
+
+/* ── Button press feedback ── */
+button:active, a[role="button"]:active {
+  transform: scale(0.97) translateY(1px);
+  transition: transform 0.1s ease;
+}
+
+/* ── Product card shimmer on hover ── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.group:hover .bottle-shimmer {
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(181,136,99,0.12) 50%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.2s ease-in-out;
+}
+
+/* ── Gold line draw animation (for section headings) ── */
+@keyframes drawLine {
+  from { width: 0; opacity: 0; }
+  to   { width: 48px; opacity: 1; }
+}
+.gold-divider {
+  animation: drawLine 0.8s cubic-bezier(0.22,1,0.36,1) both;
+  animation-play-state: paused;
+}
+.visible .gold-divider,
+section.visible .gold-divider {
+  animation-play-state: running;
+}
+
+/* ── Floating particle keyframe ── */
+@keyframes particleFloat {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(-80px) rotate(180deg); opacity: 0; }
+}
+
+/* ── Pulse animation for CTA button ── */
+@keyframes ctaPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(181,136,99,0.3); }
+  50%       { box-shadow: 0 0 0 10px rgba(181,136,99,0); }
+}
+.hero-cta-btn {
+  animation: ctaPulse 3s ease-in-out infinite;
+}
+
+/* ── Nav links underline draw ── */
+nav a::after {
+  content: '';
+  display: block;
+  height: 1px;
+  width: 0;
+  background: var(--color-accent);
+  transition: width 0.4s cubic-bezier(0.22,1,0.36,1);
+  margin-top: 2px;
+}
+nav a:hover::after {
+  width: 100%;
+}
+
+/* ── Marquee section glow ── */
+.marquee-glow {
+  position: relative;
+}
+.marquee-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 100% at 50% 50%, rgba(181,136,99,0.04) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ── Section fade enter (used by framer-motion wrapper) ── */
+@keyframes sectionFadeIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Accent line sweep ── */
+@keyframes accentSweep {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
+}
+.accent-line-animated {
+  animation: accentSweep 1s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* ── Extra-small phones (max-width: 390px) ────────────────────────────────── */
+@media (max-width: 390px) {
+  /* Botella ligeramente más contenida en pantallas muy cortas */
+  .bottle-img {
+    max-height: clamp(260px, 48vh, 340px);
+  }
+  .bottle-label {
+    bottom: 19%;
+  }
+  .hero-cta {
+    bottom: 10%;
+  }
+  .carousel-indicators {
+    bottom: 4%;
+  }
+  /* NO sobreescribimos hero-bg-text — el 11vw del breakpoint 768px ya funciona */
+  .glow-spot-1 { width: 260px; height: 260px; }
+  .glow-spot-2 { width: 260px; height: 260px; }
+  .glow-spot-3 { width: 240px; height: 240px; }
+  .glow-spot-4 { width: 300px; height: 240px; }
+  .glow-spot-5 { width: 260px; height: 280px; }
+}
+
+/* ── Small phones (max-width: 480px) ──────────────────────────────────────── */
+@media (max-width: 480px) {
+  .hero-cta-btn {
+    padding: 13px 28px;
+  }
+  .bottle-label {
+    bottom: 18%;
+  }
+  .hero-cta {
+    bottom: 9%;
+  }
+}
+
+/* ── Accesibilidad: reduced motion — desactiva animaciones pesadas ─────────── */
+@media (prefers-reduced-motion: reduce) {
+  .gline-1, .gline-2, .gline-3, .gline-4, .gline-5 {
+    animation: none;
+  }
+  .glow-spot-1, .glow-spot-2, .glow-spot-3, .glow-spot-4, .glow-spot-5 {
+    animation: none;
+  }
+  .hero-bg-text {
+    animation: none;
+  }
+  .bottle-img {
+    animation: none;
+  }
+  .bottle-glow {
+    animation: none;
+  }
+  .hero-cta-btn {
+    animation: none;
+  }
+}
+
